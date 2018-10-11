@@ -3,7 +3,7 @@
     <router-view v-if="isRouterAlive"></router-view>
   </div>
 </template>
-
+1
 <script>
   export default {
     name: "App",
