@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="author" content="Nicholas">
+    <meta name="copyright" content="Nicholas">
+    <meta name="description" content="Nicholas's Blog">
+    <meta name="keywords" content="web,前端,Nicholas,blog,博客">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">	
+    <link rel="icon" type="image/png" href="http://nicholas-image.oss-cn-shenzhen.aliyuncs.com/18-8-3/34829329.jpg">
+    <title>Nicholas's Blog</title>
+    <style>
+      body.dialog-open {
+        position: fixed;
+        width: 100%;
+       }
+    </style>
+    <script src="https://unpkg.com/vue@2.5.17/dist/vue.js"></script>
+
+    <script src="https://unpkg.com/element-ui@2.4.5/lib/index.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/axios@0.18.0/dist/axios.min.js"></script>
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script >hljs.initHighlightingOnLoad();</script>
+    <script src="https://unpkg.com/marked@0.4.0/lib/marked.js"></script>
+    <script src="https://cdn.bootcss.com/simplemde/1.11.2/simplemde.min.js"></script>
+    <link href="https://cdn.bootcss.com/simplemde/1.11.2/simplemde.min.css" rel="stylesheet">
+    <script>
+      const showBox = function (){
+        scrollTop = document.scrollingElement.scrollTop;
+        document.body.classList.add('dialog-open');
+        document.body.style.top = -scrollTop + 'px';
+      },
+      hideBox = function () {
+        document.body.classList.remove('dialog-open');
+        document.scrollingElement.scrollTop = scrollTop;
+      }
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>
