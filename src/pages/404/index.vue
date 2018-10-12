@@ -19,7 +19,7 @@
 		methods:{
 
 		},
-		mounted() {
+		beforeMount() {
 			document.title= '404'
 		},
 		computed:{

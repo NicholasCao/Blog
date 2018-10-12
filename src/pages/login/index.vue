@@ -54,7 +54,7 @@ export default {
         })
     }
   },
-  mounted() {
+  beforeMount() {
     document.title = `login`
   },
 };
@@ -82,10 +82,4 @@ export default {
   .el-button
     width 100%
     margin-top 12px    
-</style>
-<style lang="stylus">
-  html,body
-    height 100%
-    #app
-      height 100%
 </style>

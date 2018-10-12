@@ -44,7 +44,7 @@
 				})
 			}
 		},
-		created(){
+		beforeMount() {
 			this.getArticleList();
 		}
 	}
@@ -52,7 +52,6 @@
 
 
 <style lang="stylus" scoped>
-
 	#article
 		display flex
 		justify-content center

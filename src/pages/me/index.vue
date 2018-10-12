@@ -53,7 +53,7 @@
 				this.currentTab = tag;
 			}
 		},
-		mounted() {
+		beforeMount() {
 			document.title = `me - Nicholas's Blog`
 		},
 		updated() {

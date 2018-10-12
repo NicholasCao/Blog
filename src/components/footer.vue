@@ -22,7 +22,7 @@ export default {
 
 <style lang="stylus" scoped>  
   #footer
-    width 55%
+    width 70%
     margin 80px auto 0
     div
       border-top 1px solid #e5e5e5

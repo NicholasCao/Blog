@@ -3,7 +3,7 @@
     <router-view v-if="isRouterAlive"></router-view>
   </div>
 </template>
-1
+
 <script>
   export default {
     name: "App",
@@ -32,4 +32,6 @@
   @import "./stylus/_normalize.styl"
   @import "./stylus/common.styl"
   @import "./stylus/index.styl"
+  #app
+    height 100%
 </style>

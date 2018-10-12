@@ -1,5 +1,5 @@
 <template>
-  <div id="header-box">
+  <div id="header-box" :class="{'inArticle':isArticle}">
     <header>
       <span id="site-name">
         <router-link to="/">Nicholas's Blog</router-link>
@@ -28,7 +28,6 @@
         </el-dropdown>
       </nav>
     </header>
-
   </div>
 </template>
 
@@ -39,24 +38,37 @@ export default {
     return {
     }
   },
+  props: {
+    isArticle: {
+      type: Boolean,
+      required: false,
+    },
+  },
   methods:{
   }
 }
 </script>
 
 <style lang="stylus" scoped>  
+.inArticle
+  width calc(100% - 265px) !important
+  margin-left 265px
+  @media screen and (max-width: 900px)
+    width 100% !important
+    margin-left 0
 #header-box
-  @media screen and (max-width: 480px)
+  width 100%
+  top 0
+  z-index 999
+  @media screen and (max-width: 600px)
     height 70px
   header
-    z-index 999
-    padding 20px 0 0 40px
-    box-shadow 0 0 3px rgba(0,0,0,0.25)
-    -webkit-box-shadow 0 0 3px rgba(0,0,0,0.25)
+    padding 15px 0 0 20px
+    box-shadow 2px 0 2px rgba(0,0,0,0.25)
     background #fff
     margin-bottom 50px
     #site-name
-      @media screen and (max-width: 480px)
+      @media screen and (max-width: 600px)
         display inline-block
         margin-bottom 10px
         position relative
@@ -71,7 +83,7 @@ export default {
     display flex
     flex-direction row
     justify-content flex-end
-    @media screen and (max-width: 480px)
+    @media screen and (max-width: 600px)
       position absolute
       right 0
       top 15px
@@ -83,7 +95,7 @@ export default {
       padding 0 40px 7px
       background none
       border-bottom none
-      @media screen and (max-width: 480px)
+      @media screen and (max-width: 600px)
         &
           display none
       li
@@ -99,7 +111,7 @@ export default {
       right 10px
       top 10px
       display none
-      @media screen and (max-width: 480px)
+      @media screen and (max-width: 600px)
         display block
 
 </style>
