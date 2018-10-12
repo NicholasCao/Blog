@@ -1,8 +1,8 @@
 <template>
 	<div style="height:100%">
-		<navHeader  :isArticle="true"></navHeader>
+		<navHeader  :isShort="asideStatus=='show'||!asideStatus" :class="{'longHeader':asideStatus=='hide','shortHeader':asideStatus=='show'}"></navHeader>
 		<div id="main">
-			<aside>
+			<aside :class="asideStatus">
 				<div id="me">
 					<div class="sth">
 						Learn more, 					
@@ -18,12 +18,14 @@
 				<div id="catalog-box">
 					<ul>
 						<li v-for="(item,index) in catalog">
-							<a :href="item.href" :class="{'h2':item.tagName=='H2','h4':item.tagName=='H4','catalogLink-active':index==activeIndex}">{{item.text}}</a><br/>
+							<a :class="{'h2':item.tagName=='H2','h4':item.tagName=='H4','catalogLink-active':index==activeIndex}" @click=clickCatalog(item.id)>{{item.text}}</a><br/>
 						</li>
 					</ul>
 				</div>
 			</aside>
-			<div id="article-box">
+			<div id="overlay" v-if="isMobile&&asideStatus=='show'" @touchstart="changeAsideStatus">
+			</div>	
+			<div id="article-box" :class="{'leftArticle':asideStatus=='hide','rightArticle':asideStatus=='show'}">
 				<article>
 					<h1 id="title">{{title}}</h1>
 					<h3 id="time">
@@ -43,6 +45,7 @@
 			</div>
 		</div>
 		<scollbtn></scollbtn>
+		<i :class="{'el-icon-back':true,'buttonToShow':asideStatus=='hide','buttonToHide':asideStatus=='show','mobileButton':asideStatus=='mobile'}" @click=changeAsideStatus></i>
 	</div>
 </template>
 
@@ -61,22 +64,71 @@
 				"catalog": [],
 				"domScrollTop": [],
 				"activeIndex": 0,
+				"asideStatus": null,
+				"isMobile": false
 			};
 		},
 		methods:{
-			scroll(){
+			scroll() {
 				window.onscroll = () => {
 					var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
 					for(var i = this.domScrollTop.length-1 ; i>=0; i--){
 						if(scrollTop>this.domScrollTop[i]){
 							this.activeIndex = i;
-							console.log(i)
 							break;
 						}
 					}
 				};
 			},
-			getArticle(){
+			changeAsideStatus() {
+				this.asideStatus = this.asideStatus=='hide' || this.asideStatus=='mobile'?'show':'hide'
+			},
+			clickCatalog(id) {
+				this.jump(id)
+				if(this.isMobile)this.changeAsideStatus()
+			},
+			jump(id) {
+				let jump = document.querySelector(id);
+				let total = jump.offsetTop;
+				let distance = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop ;
+				// 平滑滚动，时长300ms，每10ms一跳，共30跳
+				let isSafari=window.pageYOffset ? true : false;
+				let step = total / 30
+				if (total > distance) {
+					smoothDown();
+				} else {
+					let newTotal = distance - total;
+					step = newTotal / 30;
+					smoothUp();
+				}
+				function smoothDown () {
+					if (distance < total) {
+						distance += step;
+						document.body.scrollTop = distance;
+						document.documentElement.scrollTop = distance;
+						window.pageYOffset = distance;
+						setTimeout(smoothDown, 10);
+					} else {
+						document.body.scrollTop = total;
+						document.documentElement.scrollTop = total;
+						window.pageYOffset = isSafari ? total : undefined;
+					}
+				}
+				function smoothUp () {
+					if (distance > total) {
+						distance -= step;
+						document.body.scrollTop = distance;
+						document.documentElement.scrollTop = distance;
+						window.pageYOffset = distance;
+						setTimeout(smoothUp, 10);
+					} else {
+						document.body.scrollTop = total;
+						document.documentElement.scrollTop = total;
+						window.pageYOffset = isSafari ? total : undefined;
+					}
+				} 
+			},
+			getArticle() {
 				this.$http.get("/api/article/"+this.id) 
 				.then((res) => {
 					if(res.status == 200){
@@ -94,7 +146,7 @@
 								this.catalog.push({
 									tagName: item.tagName,
 									text: item.innerText,
-									href: '#' + item.innerText,
+									id: '#' + item.innerText,
 								});
 								this.domScrollTop.push(item.offsetTop - 100);
 							})
@@ -119,6 +171,10 @@
 		beforeMount() {
 			this.id=this.$route.params.id;
 			this.getArticle();
+			if(window.innerWidth<900){
+				this.asideStatus = 'mobile'
+				this.isMobile = true
+			}
 		},
 		computed:{
 			compiledMarkdown () {
@@ -145,11 +201,12 @@
 		box-shadow 1px 1px 3px rgba(0,0,0,0.25)
 		// padding-left 15px
 		height 100%
+		z-index 900
+		background #fff
 		@media screen and (max-width: 900px)
-			display none
+			box-shadow 0 0 15px rgba(0,0,0,0.2)
 		#me
 			height 30%
-			// background #000
 			.sth
 				height 75%
 				font-size 35px
@@ -165,7 +222,7 @@
 				padding 2px
 				position relative
 				left 180px
-				top -30px
+				top -33px
 				z-index 100
 		#catalog-header
 			text-align center
@@ -179,6 +236,7 @@
 					a
 						font-size 1rem
 						color #7f8c8d
+						cursor pointer
 					a:active
 						color #34495e
 						font-weight 600
@@ -189,15 +247,24 @@
 						padding-left 20px
 					.h4
 						padding-left 45px
+	#overlay
+		position fixed
+		left 250px
+		top 0
+		height 100%
+		width calc(100% - 250px)
+		background rgba(253,253,253,0.2)
+		z-index 900
 	#article-box
 		margin-left 250px
 		width 65%
 		@media screen and (max-width: 900px)
 			width 80%
 			margin-left 0
+			animation none
 		@media screen and (max-width: 600px)
-			width 90%
-			margin-left 0
+			width 85%
+			margin-left 5px !important
 		article
 			display flex
 			justify-content center
@@ -216,4 +283,72 @@
 					font-size 1.15rem
 					:hover
 						color #000
+.el-icon-back
+	position fixed
+	bottom 20px
+	left 10px
+	font-weight 900
+	font-size 20px
+	cursor pointer
+	z-index 999
+	@media screen and (max-width: 600px)
+		left 2px
+.hide
+	animation leave .4s
+	transform translate(-100%,0)
+	box-shadow none !important
+.show
+	animation enter .4s
+	transform translate(0,0)
+.mobile
+	transform translate(-100%,0)
+	box-shadow none !important
+.buttonToShow
+	animation buttonToShow .4s
+	transform rotate(-180deg)
+.buttonToHide
+	animation buttonToHide .4s
+	transform rotate(0deg)
+.mobileButton
+	transform rotate(-180deg)
+.longHeader
+	animation longenHeader .4s
+.shortHeader
+	animation shortenHeader .4s
+.leftArticle
+	margin-left 0 !important
+	animation leftArticle .4s
+.rightArticle
+	// margin-left 0 !important
+	animation rightArticle .4s
+@keyframes leave{
+	from{transform:translate(0,0)}
+}
+@keyframes enter{
+	from{transform:translate(-100%,0)}
+}
+@keyframes buttonToShow{
+	from{transform:rotate(0)}
+}
+@keyframes buttonToHide{
+	from{transform:rotate(-180deg)}
+}
+@keyframes longenHeader{
+	from{
+		width: calc(100% - 265px)
+    margin-left: 265px
+	}
+}
+@keyframes shortenHeader{
+	from{
+		width: 100%
+    margin-left: 0
+	}
+}
+@keyframes leftArticle{
+	from{margin-left: 250px}
+}
+@keyframes rightArticle{
+	from{margin-left: 0}
+}
 </style>
