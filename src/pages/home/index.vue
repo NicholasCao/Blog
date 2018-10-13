@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div style="background:#fff;">
 		<navHeader></navHeader>
 		<div id="article">
 			<div id="article-box">
@@ -56,6 +56,7 @@
 		display flex
 		justify-content center
 		align-items center
+		background #fff
 		#article-box
 			width 45%
 			display flex

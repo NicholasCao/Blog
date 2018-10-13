@@ -60,6 +60,7 @@ export default {
   width 100%
   top 0
   z-index 100
+  background #fff
   @media screen and (max-width: 900px)
     height 70px
     animation none

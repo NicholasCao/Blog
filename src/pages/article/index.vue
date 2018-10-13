@@ -1,5 +1,5 @@
 <template>
-	<div style="height:100%">
+	<div style="height:100%;background:#fff;">
 		<navHeader  :isShort="asideStatus=='show'||!asideStatus" :class="{'longHeader':asideStatus=='hide','shortHeader':asideStatus=='show'}"></navHeader>
 		<div id="main">
 			<aside :class="asideStatus">
@@ -190,6 +190,7 @@
 	justify-content center
 	align-items center
 	min-height 100%
+	// background #fff
 	aside
 		position fixed
 		overflow-y: auto
@@ -199,10 +200,10 @@
 		left 0
 		overflow-y: auto
 		box-shadow 1px 1px 3px rgba(0,0,0,0.25)
+		background #fff
 		// padding-left 15px
 		height 100%
 		z-index 900
-		background #fff
 		@media screen and (max-width: 900px)
 			box-shadow 0 0 15px rgba(0,0,0,0.2)
 		#me
@@ -258,6 +259,7 @@
 	#article-box
 		margin-left 250px
 		width 65%
+		// background #fff
 		@media screen and (max-width: 900px)
 			width 80%
 			margin-left 0

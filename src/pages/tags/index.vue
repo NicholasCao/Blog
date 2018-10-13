@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div style="background:#fff;">
 		<navHeader></navHeader>
 		<main>
 			<h1>Tags-{{Tags.length}}</h1>
