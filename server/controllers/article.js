@@ -23,7 +23,7 @@ const getArticleById = async function (ctx){
 const getArticleList = async function (ctx){
 	let articleList = await Article.find({
 		publish:true
-	})
+	},['title', 'desc', 'createTime', '_id'])
 		.sort({ createTime: -1 })
 		.exec()
 		.catch(err => {
