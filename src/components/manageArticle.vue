@@ -346,7 +346,7 @@
 		updated() {
 			if(this.showEditBox && !this.isEdit){
 				simplemde = new SimpleMDE({
-					autoDownloadFontAwesome: false,
+					autoDownloadFontAwesome: undefined,
 					element: document.getElementById("editContent"),
 					spellChecker: false,
 					previewRender: function (plainText) {
