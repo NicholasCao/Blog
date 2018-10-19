@@ -88,7 +88,8 @@
 				if(this.isMobile)this.changeAsideStatus()
 			},
 			jump(id) {
-				let jump = document.querySelector(id);
+				let jump = document.getElementById(id);
+				console.log(id);
 				let total = jump.offsetTop;
 				let distance = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop ;
 				// 平滑滚动，时长300ms，每10ms一跳，共30跳
@@ -146,9 +147,9 @@
 								this.catalog.push({
 									tagName: item.tagName,
 									text: item.innerText,
-									id: '#' + item.innerText,
+									id: item.innerText,
 								});
-								this.domScrollTop.push(item.offsetTop - 100);
+								this.domScrollTop.push(item.offsetTop - 50);
 							})
 							this.scroll()
 						});
