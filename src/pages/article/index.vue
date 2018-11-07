@@ -9,7 +9,7 @@
 						</br>know less.
 					</div>
 					<div class="avatar">
-						<img src="http://nicholas-image.oss-cn-shenzhen.aliyuncs.com/18-8-3/34829329.jpg" style="width:50px">
+						<img src="../../assets/favicon.jpg" style="width:50px">
 					</div>
 				</div>
 				<div id="catalog-header">
