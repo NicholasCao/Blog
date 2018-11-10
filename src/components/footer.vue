@@ -4,8 +4,8 @@
       <p>
         <a href="http://www.miitbeian.gov.cn">粤ICP备18098505号</a>
       </p>
-      <p>
-        Copyright © <a href="https://github.com/NicholasCao">Nicholas</a>
+      <p class="copyright">
+        Copyright © 2018 <a href="https://github.com/NicholasCao">Nicholas.</a>
       </p>
     </div>
   </footer>
@@ -26,8 +26,14 @@ export default {
     margin 80px auto 0
     div
       border-top 1px solid #e5e5e5
+      a:hover
+        color #000
       p
         font-size 14px
         text-align center
         padding 5px 0
+        color #222
+      .copyright
+        font-size 15px
+
 </style>
