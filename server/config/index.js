@@ -1,6 +1,6 @@
 const config = {
 	mongodb: {
-		url:'mongodb://127.0.0.1:27017/test',
+		url:'mongodb://127.0.0.1:27017/blog',
 	},
 	jwt: {
 		secret: 'blog-demo', // jwt密匙
