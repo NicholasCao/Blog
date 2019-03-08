@@ -1,4 +1,4 @@
-const Article = require("../models/article.js")
+const Article = require('../models/article.js')
 
 const getArticleById = async function (ctx){
 	const id = ctx.params.id;
@@ -7,10 +7,10 @@ const getArticleById = async function (ctx){
 	})
 		.exec()
 		.catch(err => {
-			if (err.name === "CastError") {
-				ctx.throw(404, "id不存在");
+			if (err.name === 'CastError') {
+				ctx.throw(404, 'id不存在');
 			} else {
-				ctx.throw(500, "服务器内部错误");
+				ctx.throw(500, '服务器内部错误');
 			}
 		});
 		// console.log(article)
@@ -27,7 +27,7 @@ const getArticleList = async function (ctx){
 		.sort({ createTime: -1 })
 		.exec()
 		.catch(err => {
-			console.log(500,"服务器内部错误")
+			console.log(500,'服务器内部错误')
 		});
 	// console.log(articleArr)
 	ctx.body = {
@@ -44,7 +44,7 @@ const getTags = async function (ctx){
 		.sort({ createTime: -1 })
 		.exec()
 		.catch(err => {
-			console.log(500,"服务器内部错误")
+			console.log(500,'服务器内部错误')
 		});
 	for(let i=0;i<articleList.length;i++){
 		for(let j=0;j<articleList[i].tags.length;j++){

@@ -1,9 +1,9 @@
-const Admin = require("../models/admin.js"),
-	bcrypt = require("bcrypt"),
-	jwt = require("jsonwebtoken"),
-	config = require("../config/index.js");
+const Admin = require('../models/admin.js'),
+	bcrypt = require('bcrypt'),
+	jwt = require('jsonwebtoken'),
+	config = require('../config/index.js');
 
-const Article = require("../models/article.js")
+const Article = require('../models/article.js')
 
 const initAdmin = async function () {
 	//bcrypt加密
@@ -59,13 +59,13 @@ const login = async function (ctx) {
 		} else {
 			ctx.body = {
         success: false, // success标志位是方便前端判断返回是正确与否
-        info: "密码错误！"
+        info: '密码错误！'
       }
 		}
 	} else {
 		ctx.body = {
       success: false,
-      info: "用户不存在！" 
+      info: '用户不存在！' 
     }
 	}
 }
@@ -81,14 +81,14 @@ const addArticle = async function (ctx){
 	article.lastEditTime = new Date();
 
 	let result=await article.save().catch(err => {
-		ctx.throw(500, "服务器内部错误");
+		ctx.throw(500, '服务器内部错误');
 	})
 	// console.log(result);
 	ctx.body = {
 		success: true,
 		article: result,
 	};
-	console.log("文章创建成功");
+	console.log('文章创建成功');
 }
 const modifyArticle =async function (ctx) {
 	// console.log(ctx.request.body)
@@ -124,7 +124,7 @@ const getAllArticles = async function (ctx){
 		.sort({ createTime: -1 })
 		.exec()
 		.catch(err => {
-			console.log(500,"服务器内部错误")
+			console.log(500,'服务器内部错误')
 		});
 	// console.log(articleArr)
 	ctx.body = {
@@ -140,7 +140,7 @@ const getAllTags = async function (ctx){
 		.sort({ createTime: -1 })
 		.exec()
 		.catch(err => {
-			console.log(500,"服务器内部错误")
+			console.log(500,'服务器内部错误')
 		});
 	for(let i=0;i<articleList.length;i++){
 		for(let j=0;j<articleList[i].tags.length;j++){
